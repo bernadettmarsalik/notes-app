@@ -1,0 +1,72 @@
+<form [formGroup]="noteForm" class="container my-5">
+  <h3>New Note</h3>
+
+  <div class="field">
+    <label for="title" class="label">Title</label>
+    <div class="control">
+      <input
+        type="text"
+        class="input is-primary"
+        name="title"
+        id="title"
+        placeholder="Enter a title..."
+        formControlName="title"
+      />
+    </div>
+    <small
+      *ngIf="noteForm.get('title')?.invalid && noteForm.get('title')?.dirty"
+      class="help is-danger"
+    >
+      Enter a title!
+    </small>
+  </div>
+
+  <div class="field">
+    <label for="body" class="label">Body</label>
+    <div class="control">
+      <textarea
+        type="text"
+        class="textarea is-primary"
+        name="body"
+        id="body"
+        placeholder="Write something..."
+        formControlName="body"
+      ></textarea>
+    </div>
+    <small
+      *ngIf="noteForm.get('body')?.invalid && noteForm.get('body')?.dirty"
+      class="help is-danger"
+    >
+      Enter a description!
+    </small>
+  </div>
+
+  <div class="field">
+    <label for="inputstatus" class="label">Note status</label>
+    <div class="control">
+      <div class="select is-primary">
+        <select
+          id="inputstatus"
+          class="select is-primary"
+          name="status"
+          formControlName="status"
+        >
+          <option value="normal" selected>Normal</option>
+          <option value="important">Important</option>
+          <option value="archive">Archive</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field has-text-centered my-5">
+    <button
+      type="submit"
+      (click)="saveNote()"
+      [disabled]="noteForm.invalid"
+      class="button is-primary"
+    >
+      Submit form
+    </button>
+  </div>
+</form>

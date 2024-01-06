@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { NoteModel } from './note.model';
 import { data } from './notes';
 import {
+  DocumentData,
   Firestore,
+  addDoc,
   collection,
   doc,
   getDocs,
   writeBatch,
 } from '@angular/fire/firestore';
+import { Observable, from, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +53,24 @@ export class NoteService {
     await batch.commit();
 
     console.log(`Done!`);
+  }
+
+  // SAVE
+  addNote(note: NoteModel): Observable<DocumentData> {
+    return from(addDoc(this.notesCollectionRef, note));
+  }
+
+  // GETCARS
+  getNotes(): Observable<NoteModel[]> {
+    return from(getDocs(this.notesCollectionRef)).pipe(
+      map((snapshot) => {
+        const resultList = snapshot.docs.map((doc) => {
+          const noteData: NoteModel = doc.data() as NoteModel;
+          noteData.id = doc.id;
+          return noteData;
+        });
+        return resultList;
+      })
+    );
   }
 }

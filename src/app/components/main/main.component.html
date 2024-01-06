@@ -1,8 +1,11 @@
-<p>main works!</p>
-<button
-  (click)="resetDatabase()"
-  [disabled]="resetInProgress"
-  class="button is-primary"
->
-  {{ resetInProgress ? "Please wait..." : "Let's get started!" }}
-</button>
+<div class="container">
+  <router-outlet></router-outlet>
+
+  <button
+    (click)="resetDatabase()"
+    [disabled]="resetInProgress"
+    class="button is-primary mt-5"
+  >
+    {{ resetInProgress ? "Please wait..." : "Let's get started!" }}
+  </button>
+</div>

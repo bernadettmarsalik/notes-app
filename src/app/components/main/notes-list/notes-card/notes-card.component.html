@@ -1,0 +1,14 @@
+<div class="container">
+  <article *ngFor="let note of notes$ | async" class="message my-5">
+    <div class="message-header">
+      <p>{{ note.title }}</p>
+      <button class="delete" aria-label="delete"></button>
+    </div>
+    <div class="message-body">
+      {{ note.body }}
+    </div>
+    <div class="container has-text-centered">
+      <button class="button is-outlined is-dark is-rounded mb-4">EDIT</button>
+    </div>
+  </article>
+</div>

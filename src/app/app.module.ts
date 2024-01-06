@@ -9,9 +9,24 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MainComponent } from './components/main/main.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NotesListComponent } from './components/main/notes-list/notes-list.component';
+import { NotesFormComponent } from './components/main/notes-form/notes-form.component';
+import { NotesCardComponent } from './components/main/notes-list/notes-card/notes-card.component';
+import { NotesDetailsComponent } from './components/main/notes-list/notes-details/notes-details.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent],
+  declarations: [
+    AppComponent,
+    MainComponent,
+    HeaderComponent,
+    FooterComponent,
+    NotesListComponent,
+    NotesFormComponent,
+    NotesCardComponent,
+    NotesDetailsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

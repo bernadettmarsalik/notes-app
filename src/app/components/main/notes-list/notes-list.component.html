@@ -1,0 +1,29 @@
+<router-outlet></router-outlet>
+<div class="container my-4">
+  <div class="main-container">
+    <!-- search bar -->
+    <div class="search-bar-container">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="text" placeholder="Seach notes" />
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+      </div>
+
+      <!-- notes-list -->
+      <div class="notes-list">
+        <app-notes-card></app-notes-card>
+      </div>
+      <div class="container has-text-centered my-5">
+        <button
+          class="button is-primary is-large is-rounded"
+          routerLink="notes-form"
+        >
+          + Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
