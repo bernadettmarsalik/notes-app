@@ -13,9 +13,11 @@
       </div>
 
       <!-- notes-list -->
-      <div class="notes-list">
-        <app-notes-card></app-notes-card>
-      </div>
+      <app-notes-card
+        *ngFor="let note of notes$ | async"
+        [note]="note"
+      ></app-notes-card>
+
       <div class="container has-text-centered my-5">
         <button
           class="button is-primary is-large is-rounded"

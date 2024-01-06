@@ -9,7 +9,11 @@ import { NoteService } from 'src/app/shared/note.service';
   styleUrls: ['./notes-list.component.scss'],
 })
 export class NotesListComponent implements OnInit {
+  notes$: Observable<NoteModel[]> = new Observable();
+
+  constructor(private noteService: NoteService) {}
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.notes$ = this.noteService.getNotes();
   }
 }

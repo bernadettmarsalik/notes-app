@@ -6,8 +6,11 @@ import {
   Firestore,
   addDoc,
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getDocs,
+  setDoc,
   writeBatch,
 } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
@@ -60,7 +63,7 @@ export class NoteService {
     return from(addDoc(this.notesCollectionRef, note));
   }
 
-  // GETCARS
+  // GET NOTES
   getNotes(): Observable<NoteModel[]> {
     return from(getDocs(this.notesCollectionRef)).pipe(
       map((snapshot) => {
@@ -72,5 +75,29 @@ export class NoteService {
         return resultList;
       })
     );
+  }
+
+  // GET ONE NOTE
+  getNote(id: string) {
+    const noteDoc = doc(this.firestore, `notes/${id}`);
+    return from(getDoc(noteDoc)).pipe(
+      map((doc) => {
+        const noteData: NoteModel = doc.data() as NoteModel;
+        noteData.id = doc.id;
+        return noteData;
+      })
+    );
+  }
+
+  // DELETE
+  deleteNote(noteId: string): Observable<void> {
+    const noteDoc = doc(this.firestore, `notes/${noteId}`);
+    return from(deleteDoc(noteDoc));
+  }
+
+  // UPDATE
+  updateNote(note: NoteModel): Observable<void> {
+    const noteDoc = doc(this.firestore, `notes/${note.id}`);
+    return from(setDoc(noteDoc, note));
   }
 }

@@ -20,7 +20,7 @@ const routes: Routes = [
         component: NotesListComponent,
         children: [
           { path: 'notes-card', component: NotesCardComponent },
-          { path: 'notes-details', component: NotesDetailsComponent },
+          { path: 'notes-details/:id', component: NotesDetailsComponent },
         ],
       },
     ],
