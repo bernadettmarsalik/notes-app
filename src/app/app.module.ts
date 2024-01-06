@@ -12,9 +12,8 @@ import { MainComponent } from './components/main/main.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotesListComponent } from './components/main/notes-list/notes-list.component';
-import { NotesFormComponent } from './components/main/notes-form/notes-form.component';
 import { NotesCardComponent } from './components/main/notes-list/notes-card/notes-card.component';
-import { NotesDetailsComponent } from './components/main/notes-list/notes-details/notes-details.component';
+import { NotesFormComponent } from './components/main/notes-form/notes-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { NotesDetailsComponent } from './components/main/notes-list/notes-detail
     NotesListComponent,
     NotesFormComponent,
     NotesCardComponent,
-    NotesDetailsComponent,
   ],
   imports: [
     BrowserModule,

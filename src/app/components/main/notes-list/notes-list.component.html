@@ -1,31 +1,24 @@
 <router-outlet></router-outlet>
-<div class="container my-4">
+<div class="container my-6">
   <div class="main-container">
-    <!-- search bar -->
-    <div class="search-bar-container">
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="text" placeholder="Seach notes" />
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </p>
+    <!-- Notes list -->
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <app-notes-card
+          *ngFor="let note of notes$ | async"
+          [note]="note"
+        ></app-notes-card>
       </div>
+    </div>
 
-      <!-- notes-list -->
-      <app-notes-card
-        *ngFor="let note of notes$ | async"
-        [note]="note"
-      ></app-notes-card>
-
-      <div class="container has-text-centered my-5">
-        <button
-          class="button is-primary is-large is-rounded"
-          routerLink="notes-form"
-        >
-          + Add
-        </button>
-      </div>
+    <!-- Add note button -->
+    <div class="container has-text-centered my-5">
+      <button
+        class="button is-primary is-large is-rounded"
+        routerLink="notes-form"
+      >
+        + Add
+      </button>
     </div>
   </div>
 </div>

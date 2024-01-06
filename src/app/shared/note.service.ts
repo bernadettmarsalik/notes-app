@@ -95,8 +95,8 @@ export class NoteService {
     return from(deleteDoc(noteDoc));
   }
 
-  // UPDATE
-  updateNote(note: NoteModel): Observable<void> {
+  // EDIT
+  editNote(note: NoteModel): Observable<void> {
     const noteDoc = doc(this.firestore, `notes/${note.id}`);
     return from(setDoc(noteDoc, note));
   }

@@ -1,14 +1,37 @@
 <div class="container">
-  <article *ngFor="let note of notes$ | async" class="message my-5">
+  <article
+    [ngClass]="{
+      message: true,
+      'is-primary': note?.status === 'normal',
+      'is-danger': note?.status === 'important',
+      'is-dark': note?.status === 'archive'
+    }"
+    class="message is-medium"
+    id="cards"
+  >
     <div class="message-header">
-      <p>{{ note.title }}</p>
-      <button class="delete" aria-label="delete"></button>
+      <p>{{ note?.title }}</p>
+      <button
+        class="delete"
+        aria-label="delete"
+        (click)="onDelete(note?.id)"
+      ></button>
     </div>
     <div class="message-body">
-      {{ note.body }}
+      {{ note?.body }}
     </div>
     <div class="container has-text-centered">
-      <button class="button is-outlined is-dark is-rounded mb-4">EDIT</button>
+      <button
+        class="button is-outlined mb-4"
+        [ngClass]="{
+          'is-primary': note?.status === 'normal',
+          'is-danger': note?.status === 'important',
+          'is-dark': note?.status === 'archive'
+        }"
+        (click)="onEdit(note?.id)"
+      >
+        EDIT
+      </button>
     </div>
   </article>
 </div>

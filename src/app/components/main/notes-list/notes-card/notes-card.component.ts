@@ -1,8 +1,8 @@
 import { NoteService } from 'src/app/shared/note.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NoteModel } from 'src/app/shared/note.model';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes-card',
@@ -10,21 +10,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./notes-card.component.scss'],
 })
 export class NotesCardComponent implements OnInit {
+  @Input() note?: NoteModel;
   notes$: Observable<NoteModel[]> = new Observable();
 
-  constructor(private noteService: NoteService, private router: Router) {}
+  constructor(
+    private noteService: NoteService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.notes$ = this.noteService.getNotes();
   }
 
-  onDelete(id: string): void {
-    if (confirm(`Do you want to delete this note?`)) {
+  onDelete(id?: string): void {
+    if (id && confirm(`Do you wanna delete note id: ${id}?`)) {
       this.noteService.deleteNote(id).subscribe({
         complete: () => {
-          this.router.navigate(['notes-list']);
+          this.router.navigate(['notes']);
         },
       });
+    }
+  }
+
+  onEdit(id?: string) {
+    if (id) {
+      this.router.navigate(['edit', id], { relativeTo: this.route });
     }
   }
 }
