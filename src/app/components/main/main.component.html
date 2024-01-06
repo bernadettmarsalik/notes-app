@@ -1,0 +1,8 @@
+<p>main works!</p>
+<button
+  (click)="resetDatabase()"
+  [disabled]="resetInProgress"
+  class="button is-primary"
+>
+  {{ resetInProgress ? "Please wait..." : "Let's get started!" }}
+</button>
