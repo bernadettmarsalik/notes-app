@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="cards-container">
   <article
     [ngClass]="{
       message: true,
@@ -8,21 +8,22 @@
     }"
     class="message is-medium"
     id="cards"
+    (click)="triggerReadMore()"
   >
     <div class="message-header">
       <p>{{ note?.title }}</p>
       <button
-        class="delete"
+        class="delete is-large"
         aria-label="delete"
         (click)="onDelete(note?.id)"
       ></button>
     </div>
     <div class="message-body">
-      {{ note?.body }}
+      {{ note?.body | truncate : 20 : showAll }}
     </div>
-    <div class="container has-text-centered">
+    <div class="container has-text-right">
       <button
-        class="button is-outlined mb-4"
+        class="button is-outlined mb-4 is-normal m-5"
         [ngClass]="{
           'is-primary': note?.status === 'normal',
           'is-danger': note?.status === 'important',
@@ -30,7 +31,10 @@
         }"
         (click)="onEdit(note?.id)"
       >
-        EDIT
+        <span class="icon is-small">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </span>
+        <span>Edit</span>
       </button>
     </div>
   </article>

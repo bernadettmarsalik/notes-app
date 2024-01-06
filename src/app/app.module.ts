@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotesListComponent } from './components/main/notes-list/notes-list.component';
 import { NotesCardComponent } from './components/main/notes-list/notes-card/notes-card.component';
 import { NotesFormComponent } from './components/main/notes-form/notes-form.component';
+import { TruncatePipe } from './shared/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NotesFormComponent } from './components/main/notes-form/notes-form.comp
     NotesListComponent,
     NotesFormComponent,
     NotesCardComponent,
+    TruncatePipe,
   ],
   imports: [
     BrowserModule,
