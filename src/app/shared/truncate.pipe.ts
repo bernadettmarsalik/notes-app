@@ -10,12 +10,13 @@ export class TruncatePipe implements PipeTransform {
     showAll: boolean = false,
     suffix: string = '...'
   ): any {
-    if (showAll) {
+    if (showAll || typeof text !== 'string') {
       return text;
     }
 
-    if (text.split(' ').length > length) {
-      return text.split(' ').splice(0, length).join(' ') + suffix;
+    if (text.length > length) {
+      const truncatedText = text.substring(0, length).trim();
+      return truncatedText + suffix;
     }
 
     return text;

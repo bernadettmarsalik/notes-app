@@ -8,7 +8,6 @@
     }"
     class="message is-medium"
     id="cards"
-    (click)="triggerReadMore()"
   >
     <div class="message-header">
       <p>{{ note?.title }}</p>
@@ -19,11 +18,17 @@
       ></button>
     </div>
     <div class="message-body">
-      {{ note?.body | truncate : 20 : showAll }}
+      {{ showAll ? note?.body : (note?.body | truncate : 20) }}
+    </div>
+    <div class="container has-text-centered mt-5">
+      <span class="read-more icon" (click)="triggerReadMore()">
+        <i class="fas fa-angle-down" *ngIf="!showAll"></i>
+        <i class="fas fa-angle-up" *ngIf="showAll"></i>
+      </span>
     </div>
     <div class="container has-text-right">
       <button
-        class="button is-outlined mb-4 is-normal m-5"
+        class="button is-outlined mb-4 mr-4 is-normal"
         [ngClass]="{
           'is-primary': note?.status === 'normal',
           'is-danger': note?.status === 'important',
