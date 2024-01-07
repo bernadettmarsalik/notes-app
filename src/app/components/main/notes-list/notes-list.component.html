@@ -1,15 +1,3 @@
-<router-outlet></router-outlet>
-<div class="container my-6">
-  <div class="main-container">
-    <!-- Notes list -->
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <app-notes-card
-          *ngFor="let note of notes$ | async"
-          [note]="note"
-        ></app-notes-card>
-      </div>
-    </div>
 
     <!-- Add note button -->
     <div class="container has-text-centered my-5">
