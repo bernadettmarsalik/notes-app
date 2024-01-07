@@ -22,7 +22,6 @@ export class NotesListComponent implements OnInit {
   }
 
   // SEARCH BAR
-
   filter(query: string) {
     this.noteService.searchNotes(query).subscribe((filteredNotes) => {
       this.filteredNotes$ = of(filteredNotes);
