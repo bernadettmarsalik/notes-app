@@ -7,15 +7,7 @@ import { NoteService } from 'src/app/shared/note.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent {
-  public resetInProgress: boolean = false;
-
-  constructor(private noteService: NoteService) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  public async resetDatabase(): Promise<void> {
-    this.resetInProgress = true;
-    await this.noteService.initializeDb();
-    this.resetInProgress = false;
-  }
 }
