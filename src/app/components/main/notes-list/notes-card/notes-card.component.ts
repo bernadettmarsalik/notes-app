@@ -1,10 +1,12 @@
 import { NoteService } from 'src/app/shared/note.service';
 import {
   Component,
+  EventEmitter,
   Input,
   NgModule,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { NoteModel } from 'src/app/shared/note.model';
@@ -43,7 +45,7 @@ export class NotesCardComponent implements OnInit, OnChanges {
     if (id && confirm(`Do you wanna delete note id: ${id}?`)) {
       this.noteService.deleteNote(id).subscribe({
         complete: () => {
-          this.router.navigate(['notes']);
+          this.notes$ = this.noteService.getNotes();
         },
       });
     }
@@ -51,7 +53,7 @@ export class NotesCardComponent implements OnInit, OnChanges {
 
   onEdit(id?: string) {
     if (id) {
-      this.router.navigate(['edit', id], { relativeTo: this.route });
+      this.router.navigate([id], { relativeTo: this.route });
     }
   }
 
