@@ -30,7 +30,7 @@ export class NotesFormComponent implements OnInit, OnDestroy {
         Validators.minLength(2),
       ]),
       body: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      status: new FormControl('', [Validators.required]),
+      status: new FormControl(''),
     });
 
     // UPDATE:

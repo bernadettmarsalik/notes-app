@@ -1,9 +1,11 @@
 #header {
-  background: rgb(250, 211, 196);
+  background: hsl(291, 72%, 93%);
   background: linear-gradient(
     270deg,
-    rgba(250, 211, 196, 0.8) 0%,
-    rgba(200, 145, 255, 0.8) 50%,
-    rgba(43, 216, 159, 0.8) 100%
+    hsl(348, 100%, 61%) 0%,
+    hsl(277, 98%, 52%) 40%,
+    hsl(171, 100%, 41%) 80%
   );
+  opacity: 80%;
+  box-shadow: 0px 15px 15px 0px rgba(0, 0, 0, 0.11);
 }
