@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NoteModel } from 'src/app/shared/note.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TruncatePipe } from 'src/app/shared/truncate.pipe';
 
@@ -23,6 +23,7 @@ export class NotesCardComponent implements OnInit, OnChanges {
   @Input() note?: NoteModel;
   @Input() filteredNotes: NoteModel[] = [];
   notes$: Observable<NoteModel[]> = new Observable();
+  filteredNotes$: Observable<NoteModel[]> = new Observable();
   public showAll: any = false;
 
   constructor(
@@ -45,7 +46,10 @@ export class NotesCardComponent implements OnInit, OnChanges {
     if (id && confirm(`Do you wanna delete note id: ${id}?`)) {
       this.noteService.deleteNote(id).subscribe({
         complete: () => {
-          this.notes$ = this.noteService.getNotes();
+          this.noteService.getNotes().subscribe((notes) => {
+            this.notes$ = of(notes);
+            this.filteredNotes$ = of(notes);
+          });
         },
       });
     }

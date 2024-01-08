@@ -18,7 +18,7 @@ export class NotesListComponent implements OnInit {
     this.loadNotes();
   }
 
-  private loadNotes() {
+  public loadNotes() {
     this.noteService.getNotes().subscribe((notes) => {
       this.notes$ = of(notes);
       this.filteredNotes$ = of(notes);
