@@ -1,18 +1,14 @@
 import { NoteService } from 'src/app/shared/note.service';
 import {
   Component,
-  EventEmitter,
   Input,
-  NgModule,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { NoteModel } from 'src/app/shared/note.model';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TruncatePipe } from 'src/app/shared/truncate.pipe';
 
 @Component({
   selector: 'app-notes-card',
@@ -32,7 +28,7 @@ export class NotesCardComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.notes$ = this.noteService.getNotes();
+    this.filteredNotes$ = this.noteService.getNotes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

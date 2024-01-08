@@ -1,6 +1,6 @@
 export interface NoteModel {
-  id?: string;
+  id: string;
   title: string;
   body: string;
-  status?: string;
+  status: string;
 }

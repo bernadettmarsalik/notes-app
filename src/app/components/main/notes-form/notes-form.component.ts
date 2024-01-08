@@ -1,16 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ParamMap } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { EMPTY, Subscription, switchMap } from 'rxjs';
+import { NoteModel } from 'src/app/shared/note.model';
 import { NoteService } from 'src/app/shared/note.service';
 
 @Component({
@@ -22,6 +16,8 @@ export class NotesFormComponent implements OnInit, OnDestroy {
   noteForm!: FormGroup;
   subSaveNote?: Subscription;
   updateNoteId?: string;
+  subDeleteNote?: Subscription;
+  public note?: NoteModel;
 
   constructor(
     private noteService: NoteService,
@@ -47,7 +43,10 @@ export class NotesFormComponent implements OnInit, OnDestroy {
           this.noteService.getNote(noteId).subscribe({
             next: (data) => {
               this.noteForm.patchValue(data);
-              this.updateNoteId = data.id;
+              this.updateNoteId = data?.id;
+            },
+            error: (e) => {
+              console.log(e);
             },
           });
         }
@@ -65,6 +64,10 @@ export class NotesFormComponent implements OnInit, OnDestroy {
     return this.noteForm.get('status');
   }
 
+  get id() {
+    return this.noteForm.get('id');
+  }
+
   saveNote() {
     if (!this.noteForm.invalid) {
       const noteToSave = this.noteForm.value;
@@ -79,15 +82,15 @@ export class NotesFormComponent implements OnInit, OnDestroy {
       } else {
         this.subSaveNote = this.noteService.addNote(noteToSave).subscribe({
           next: (docRef) => {
-            alert('Note saved!');
+            console.log('Saving note...');
           },
           error: (err) => {
             console.log(err);
           },
           complete: () => {
-            console.log('Done!');
+            console.log('Note saved complete!');
             this.noteForm.reset();
-            this.router.navigate(['']);
+            this.goBack();
           },
         });
       }
@@ -99,18 +102,40 @@ export class NotesFormComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id?: string): void {
-    if (id && confirm(`Do you want to delete note id: ${id}?`)) {
-      this.noteService.deleteNote(id).subscribe({
-        complete: () => {
-          this.router.navigate(['']);
-        },
-      });
+    if (id && confirm(`Do you wanna delete note id: ${id}?`)) {
+      this.noteService
+        .getNote(id)
+        .pipe(
+          switchMap((data) => {
+            this.noteForm.patchValue(data);
+            this.updateNoteId = data?.id;
+            return this.noteService.deleteNote(data?.id);
+          })
+        )
+        .subscribe({
+          next: () => {
+            console.log(
+              `Deleting note with id ${id} then redirecting to notes...`
+            );
+          },
+
+          error: (e) => {
+            console.log(e);
+          },
+          complete: () => {
+            this.goBack();
+          },
+        });
     }
   }
 
   ngOnDestroy(): void {
     if (this.subSaveNote) {
       this.subSaveNote.unsubscribe();
+    }
+
+    if (this.subDeleteNote) {
+      this.subDeleteNote.unsubscribe();
     }
   }
 }
