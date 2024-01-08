@@ -21,7 +21,6 @@ import { TruncatePipe } from 'src/app/shared/truncate.pipe';
 })
 export class NotesCardComponent implements OnInit, OnChanges {
   @Input() note?: NoteModel;
-  @Input() filteredNotes: NoteModel[] = [];
   notes$: Observable<NoteModel[]> = new Observable();
   filteredNotes$: Observable<NoteModel[]> = new Observable();
   public showAll: any = false;

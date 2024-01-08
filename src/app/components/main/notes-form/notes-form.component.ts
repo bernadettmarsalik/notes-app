@@ -22,7 +22,6 @@ export class NotesFormComponent implements OnInit, OnDestroy {
   noteForm!: FormGroup;
   subSaveNote?: Subscription;
   updateNoteId?: string;
-  @Output() onDeleteNote = new EventEmitter<any>(); // Initialize the property
 
   constructor(
     private noteService: NoteService,
@@ -103,10 +102,6 @@ export class NotesFormComponent implements OnInit, OnDestroy {
     if (id && confirm(`Do you want to delete note id: ${id}?`)) {
       this.noteService.deleteNote(id).subscribe({
         complete: () => {
-          // Notify the parent component (NotesListComponent) that a note is deleted
-          this.onDeleteNote.emit(id);
-
-          // Optionally, you can navigate back or perform other actions
           this.router.navigate(['']);
         },
       });
