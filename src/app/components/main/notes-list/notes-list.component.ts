@@ -33,9 +33,19 @@ export class NotesListComponent implements OnInit {
   }
 
   // DELETE NOTE AND UPDATE LIST
-  onDeleteNote(id: string): void {
-    this.noteService.deleteNote(id).subscribe(() => {
-      this.loadNotes();
-    });
+  onDelete(id?: string): void {
+    if (id && confirm(`Do you want to delete note id: ${id}?`)) {
+      this.noteService.deleteNote(id).subscribe({
+        next: () => {
+          this.loadNotes();
+        },
+        complete: () => {
+          this.loadNotes();
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
+    }
   }
 }

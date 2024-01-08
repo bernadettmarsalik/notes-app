@@ -4,15 +4,14 @@ import {
   DocumentData,
   Firestore,
   addDoc,
-  collection,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
   setDoc,
-  where,
 } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
+import { collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
