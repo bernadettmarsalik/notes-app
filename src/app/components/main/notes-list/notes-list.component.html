@@ -22,6 +22,12 @@
     <!-- Notes list -->
     <div class="columns is-centered">
       <div class="column is-half">
+        <div
+          *ngIf="!(filteredNotes && filteredNotes.length)"
+          class="has-text-primary is-size-4 has-text-centered"
+        >
+          No notes yet. Add one.
+        </div>
         <app-notes-card
           *ngFor="let note of filteredNotes$ | async"
           [note]="note"
@@ -32,11 +38,15 @@
 </div>
 
 <!-- Add note button -->
-<div class="sticky-container">
-  <div class="sticky-button-container">
-    <button class="button is-primary is-large is-rounded" routerLink="new">
-      + Add
-    </button>
-  </div>
+<div
+  class="sticky-button-container is-flex is-align-items-baseline"
+  [ngClass]="
+    filteredNotes.length === 0
+      ? 'is-justify-content-center'
+      : 'is-justify-content-right customMargin'
+  "
+>
+  <button class="button is-primary is-large is-rounded" routerLink="new">
+    + Add
+  </button>
 </div>
-<!-- (keyup)="filter($any($event.target).value)" -->

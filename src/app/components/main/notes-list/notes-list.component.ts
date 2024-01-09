@@ -13,6 +13,7 @@ export class NotesListComponent implements OnInit {
 
   notes$: Observable<NoteModel[]> = new Observable();
   filteredNotes$: Observable<NoteModel[]> = new Observable();
+  filteredNotes: NoteModel[] = [];
 
   ngOnInit(): void {
     this.loadNotes();
@@ -22,6 +23,7 @@ export class NotesListComponent implements OnInit {
     this.noteService.getNotes().subscribe((notes) => {
       this.notes$ = of(notes);
       this.filteredNotes$ = of(notes);
+      this.filteredNotes = notes;
     });
   }
 
@@ -47,5 +49,13 @@ export class NotesListComponent implements OnInit {
         },
       });
     }
+  }
+
+  // ADD-BUTTON STYLE:
+  addButtonStyle() {
+    return {
+      margin: this.filteredNotes.length > 0 ? '0' : '0 auto',
+      right: this.filteredNotes.length > 0 ? '50%' : 'auto',
+    };
   }
 }
