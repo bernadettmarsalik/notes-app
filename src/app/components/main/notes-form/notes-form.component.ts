@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ParamMap } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { EMPTY, Subscription, switchMap } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { NoteModel } from 'src/app/shared/note.model';
 import { NoteService } from 'src/app/shared/note.service';
 
