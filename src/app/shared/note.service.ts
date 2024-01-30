@@ -8,8 +8,6 @@ import {
   deleteDoc,
   doc,
   docData,
-  getDoc,
-  getDocs,
   setDoc,
 } from '@angular/fire/firestore';
 import { Observable, from, map, tap } from 'rxjs';
@@ -27,20 +25,7 @@ export class NoteService {
   addNote(note: NoteModel): Observable<DocumentData> {
     return from(addDoc(this.notesCollectionRef, note));
   }
-
-  // GET NOTES
-  // getNotes(): Observable<NoteModel[]> {
-  //   return from(getDocs(this.notesCollectionRef)).pipe(
-  //     map((snapshot) => {
-  //       const resultList = snapshot.docs.map((doc) => {
-  //         const noteData: NoteModel = doc.data() as NoteModel;
-  //         noteData.id = doc.id;
-  //         return noteData;
-  //       });
-  //       return resultList;
-  //     })
-  //   );
-  // }
+  
 
   getNotes() {
     return collectionData(this.notesCollectionRef, {
@@ -48,28 +33,11 @@ export class NoteService {
     }) as Observable<NoteModel[]>;
   }
 
-  // GET ONE NOTE
-  // getNote(id: string) {
-  //   const noteDoc = doc(this.firestore, `notes/${id}`);
-  //   return from(getDoc(noteDoc)).pipe(
-  //     map((doc) => {
-  //       const noteData: NoteModel = doc.data() as NoteModel;
-  //       noteData.id = doc.id;
-  //       return noteData;
-  //     })
-  //   );
-  // }
 
   getNote(id: string): Observable<NoteModel> {
     const noteDoc = doc(this.firestore, `notes/${id}`);
     return docData(noteDoc, { idField: 'id' }) as Observable<NoteModel>;
   }
-
-  // DELETE
-  // deleteNote(noteId: string): Observable<void> {
-  //   const noteDoc = doc(this.firestore, `notes/${noteId}`);
-  //   return from(deleteDoc(noteDoc));
-  // }
 
   deleteNote(noteId: string): Observable<void> {
     const noteDoc = doc(this.firestore, `notes/${noteId}`);
