@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "(public)",
+    "public": "dist/notes-app",
     "ignore": [
       "firebase.json",
       "**/.*",
